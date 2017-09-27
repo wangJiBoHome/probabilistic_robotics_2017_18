@@ -1,4 +1,4 @@
-# Probabilistic Robotics 2017/2018
+# Probabilistic Robotics 2017/18
 
 Maintainers:
  - [Giorgio Grisetti](https://sites.google.com/dis.uniroma1.it/grisetti)

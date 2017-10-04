@@ -9,11 +9,11 @@ Contents: <br/>
 Teaching material for the [Probabilistic Robotics course](https://sites.google.com/dis.uniroma1.it/probabilistic-robotics) of the academic year 2017/2018
 
 ## What's where?
-| Folder     | Description                                                                             |
-| :--------- | :-------------------------------------------------------------------------------------- |
-| literature | Additional reading material related to the coursework                                   |
-| programs   | Octave/C++ example programs mentioned in the course                                     |
-| slides     | Lecture slides in PDF format                                                            |
+| Folder       | Description                                                                             |
+| :----------- | :-------------------------------------------------------------------------------------- |
+| literature   | Additional reading material related to the coursework                                   |
+| applications | Octave/C++ example programs discussed in the course                                     |
+| slides       | Lecture slides in PDF format                                                            |
 
 ## Want to have all the files on your computer?
 
@@ -29,6 +29,14 @@ Later, as new material is added - one can conveniently update the local copy:
 
     cd probabilistic_robotics_2017_18
     git pull
+
+## Application guide
+# `grid-orazio`
+While in the source folder (`applications/octave/04_grid_orazio`), launch the program with:
+ 
+     octave grid_orazio.m
+     
+Orazio can be moved with the keyboard controls (I, J, K, L).
 
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>

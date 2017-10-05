@@ -3,6 +3,12 @@ close all
 clear
 clc
 
+#check input
+if length(argv) == 0
+  printf("no input map provided - run: octave grid_orazio maps/map.txt\n");
+  return;
+endif
+
 #generate/load our map
 global map = getMap(argv(){1});
 
@@ -21,7 +27,7 @@ function keyPressed (src_, event_)
   #available robot controls (corresponding to keyboard key values)
   global MOVE_UP    = 119; # W
   global MOVE_DOWN  = 115; # S
-  global MOVE_LEFT  = 97; # A
+  global MOVE_LEFT  = 97;  # A
   global MOVE_RIGHT = 100; # D
   
   #evaluate which key was pressed
@@ -67,11 +73,9 @@ function keyPressed (src_, event_)
   #obtain current observations according to our observation model
   observations = getObservations(map, state_ground_truth);
 
-  #INITIALIZE robot position belief
+  #PREDICT robot position belief
   state_belief_previous = state_belief;
   state_belief = zeros(map_rows, map_cols);
-
-  #PREDICT robot position belief
 	for row = 1:map_rows
 		for col = 1:map_cols
       state_belief += transitionModel(map, row, col, control_input)*state_belief_previous(row, col);
@@ -83,7 +87,7 @@ function keyPressed (src_, event_)
 	for row = 1:map_rows
 		for col = 1:map_cols
 			state_belief(row, col) *= observationModel(map, row, col, observations);
-      inverse_normalizer      += state_belief(row, col);
+      inverse_normalizer     += state_belief(row, col);
 		endfor
 	endfor	
 

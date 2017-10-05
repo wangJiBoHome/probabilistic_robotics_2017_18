@@ -15,7 +15,7 @@ function transition_probability_matrix = transitionModel(map_, row_from_, col_fr
 
       #compute resulting position difference
      	translation_rows = row - row_from_;
-      translation_cols = col - col_from_;
+	translation_cols = col - col_from_;
 
 	    #allow only unit motions (1 cell): check if we have a bigger motion
 	    if(abs(translation_rows) > 1 || abs(translation_cols) > 1)
@@ -24,7 +24,7 @@ function transition_probability_matrix = transitionModel(map_, row_from_, col_fr
 
 	    #compute target robot position according to input
 	    target_row = row_from_;
-      target_col = col_from_;
+	    target_col = col_from_;
 	    switch (control_input_)
 		    case MOVE_UP
 			    target_row++;

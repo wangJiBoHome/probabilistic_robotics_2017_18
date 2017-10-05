@@ -4,24 +4,25 @@ clear
 clc
 
 #generate/load our map
-global map = getMap(10, 10);
+global map = getMap('maps/map.txt');
 
 #initialize actual robot position x,y (not a state visible to the robot)
-global robot_position = [2,2];
+global state_ground_truth = [2,2];
 
 #initialize robot states: position belief values over the complete grid
-belief_initial_value = 1/(rows(map)*columns(map));
-global belief_matrix = ones(rows(map), columns(map))*belief_initial_value;
+number_of_free_cells = rows(map)*columns(map);
+belief_initial_value = 1/(number_of_free_cells);
+global state_belief = ones(rows(map), columns(map))*belief_initial_value;
 global observations  = [0 0 0 0];
 
 #function that is executed when a key is pressed (user input)
 function keyPressed (src_, event_)
 
   #available robot controls (corresponding to keyboard key values)
-  global MOVE_UP    = 105;
-  global MOVE_DOWN  = 107;
-  global MOVE_LEFT  = 106;
-  global MOVE_RIGHT = 108;
+  global MOVE_UP    = 119; # W
+  global MOVE_DOWN  = 115; # S
+  global MOVE_LEFT  = 97; # A
+  global MOVE_RIGHT = 100; # D
   
   #evaluate which key was pressed
   control_input = 0;
@@ -45,8 +46,8 @@ function keyPressed (src_, event_)
   
   #fetch global variables
   global map;
-  global robot_position;
-  global belief_matrix;
+  global state_ground_truth;
+  global state_belief;
   global observations;
   global subfigure_ground_truth;
   global subfigure_belief;
@@ -55,25 +56,25 @@ function keyPressed (src_, event_)
   
   #erase previous robot position and observations
   subplot(subfigure_ground_truth);
-  rectangle("Position", [robot_position(2)-1 robot_position(1)-1 1 1], "FaceColor", "white");
-  clearObservations(observations, robot_position, map);
+  rectangle("Position", [state_ground_truth(2)-1 state_ground_truth(1)-1 1 1], "FaceColor", "white");
+  clearObservations(observations, state_ground_truth, map);
   
 #---------------------------------- FILTERING ----------------------------------
 
   #retrieve new robot position according to our transition model
-  robot_position = getRobotPosition(map, robot_position, control_input);
+  state_ground_truth = getNextState(map, state_ground_truth, control_input);
   
   #obtain current observations according to our observation model
-  observations = getObservations(map, robot_position);
+  observations = getObservations(map, state_ground_truth);
 
   #INITIALIZE robot position belief
-  belief_matrix_previous = belief_matrix;
-  belief_matrix = zeros(map_rows, map_cols);
+  state_belief_previous = state_belief;
+  state_belief = zeros(map_rows, map_cols);
 
   #PREDICT robot position belief
 	for row = 1:map_rows
 		for col = 1:map_cols
-      belief_matrix += transitionModel(map, row, col, control_input)*belief_matrix_previous(row, col);
+      state_belief += transitionModel(map, row, col, control_input)*state_belief_previous(row, col);
 		endfor
 	endfor
 
@@ -81,29 +82,29 @@ function keyPressed (src_, event_)
 	inverse_normalizer = 0;
 	for row = 1:map_rows
 		for col = 1:map_cols
-			belief_matrix(row, col) *= observationModel(map, row, col, observations);
-      inverse_normalizer      += belief_matrix(row, col);
+			state_belief(row, col) *= observationModel(map, row, col, observations);
+      inverse_normalizer      += state_belief(row, col);
 		endfor
 	endfor	
 
   #NORMALIZE the belief probabilities to [0, 1]
 	normalizer = 1./inverse_normalizer;	
-	belief_matrix *= normalizer;
+	state_belief *= normalizer;
 
 #---------------------------------- FILTERING ----------------------------------
 
   #draw new robot position and its observations on the map
   subplot(subfigure_ground_truth);
-  rectangle("Position", [robot_position(2)-1 robot_position(1)-1 1 1], "FaceColor", "red");
-  drawObservations(observations, robot_position);
+  rectangle("Position", [state_ground_truth(2)-1 state_ground_truth(1)-1 1 1], "FaceColor", "red");
+  drawObservations(observations, state_ground_truth);
 
   #draw belief
   subplot(subfigure_belief);
-  drawBelief(belief_matrix, map);
+  drawBelief(state_belief, map);
 
   #status info
   printf("control input: %s, current position: %i %i, observations: %i %i %i %i\n", 
-         control_input_string, robot_position(1), robot_position(2),
+         control_input_string, state_ground_truth(1), state_ground_truth(2),
          observations(1), observations(2), observations(3), observations(4));
 endfunction
 
@@ -127,7 +128,7 @@ global subfigure_belief = subplot(1, 2, 1);
 grid on;
 axis("square");
 set(title("robot position | belief"), "fontsize", font_size);
-drawBelief(belief_matrix, map);
+drawBelief(state_belief, map);
 
 #initialize robot position
 global subfigure_ground_truth = subplot(1, 2, 2);
@@ -138,10 +139,10 @@ drawMap(map);
 
 #draw initial robot position
 hold on;
-rectangle("Position", [robot_position(2)-1 robot_position(1)-1 1 1], "FaceColor", "red");
+rectangle("Position", [state_ground_truth(2)-1 state_ground_truth(1)-1 1 1], "FaceColor", "red");
 hold off;
 printf("map loaded!\n");
-printf("Move orazio with [I, J, K, L]\n");
+printf("Move orazio with [W, A, S, D]\n");
 
 #display GUI as long as active
 global is_gui_active = true;

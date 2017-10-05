@@ -1,4 +1,4 @@
-function observations = getObservations(map_, robot_position_)
+function observations = getObservations(map_, state_ground_truth_)
 
   #sample minimum probability
 	minimum_probability    = unifrnd(0, 1);
@@ -8,7 +8,7 @@ function observations = getObservations(map_, robot_position_)
 	#possible observation in form (UP, DOWN, LEFT, RIGHT)
 	for observation = 0:15
 		current_observations    = getBinaryArray(observation);
-		current_probability     = observationModel(map_, robot_position_(1), robot_position_(2), current_observations);
+		current_probability     = observationModel(map_, state_ground_truth_(1), state_ground_truth_(2), current_observations);
 		cumulative_probability += current_probability;
 		if(cumulative_probability > minimum_probability)
 			observations = current_observations;

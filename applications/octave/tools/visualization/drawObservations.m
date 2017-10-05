@@ -1,6 +1,6 @@
-function drawObservations(observations_, robot_position_)
-  row = robot_position_(1)-1;
-  col = robot_position_(2)-1;
+function drawObservations(observations_, state_ground_truth_)
+  row = state_ground_truth_(1)-1;
+  col = state_ground_truth_(2)-1;
 	hold on;
 	
 	#check the observation array

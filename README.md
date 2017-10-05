@@ -45,7 +45,7 @@ Install [GNU Octave](https://www.gnu.org/software/octave/) or [MATLAB](https://m
 ## `grid-orazio` (Octave)
 While in the source folder (`applications/octave/04_grid_orazio`), launch the program with:
  
-     octave grid_orazio.m
+     octave grid_orazio.m maps/map.txt
      
 Orazio can be moved with the keyboard controls (W, A, S, D).
 

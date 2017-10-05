@@ -4,7 +4,7 @@ clear
 clc
 
 #generate/load our map
-global map = getMap('maps/map.txt');
+global map = getMap(argv(){1});
 
 #initialize actual robot position x,y (not a state visible to the robot)
 global state_ground_truth = [2,2];

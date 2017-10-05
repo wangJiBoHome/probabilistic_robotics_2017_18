@@ -40,14 +40,13 @@ Install [GNU Octave](https://www.gnu.org/software/octave/) or [MATLAB](https://m
 `Octave` can be installed by simply entering:
 
     sudo apt-get install octave
+    
+If you want to run the `Octave` examples on a Windows machine make sure to copy all files from
+[visualization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/tools/visualization) and
+[utilities](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/tools/utilities)
 
-### Applications:
-## `grid-orazio` (Octave)
-While in the source folder (`applications/octave/04_grid_orazio`), launch the program with:
- 
-     octave grid_orazio.m maps/map.txt
-     
-Orazio can be moved with the keyboard controls (W, A, S, D).
+### Applications
+ - [grid-orazio](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/04_grid_orazio) (Octave)
 
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>

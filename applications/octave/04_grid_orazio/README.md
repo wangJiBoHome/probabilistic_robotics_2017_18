@@ -1,4 +1,4 @@
-## `grid-orazio` (Octave)
+## grid-orazio (Octave)
 While in this folder, launch the program with:
  
      octave grid_orazio.m maps/map.txt

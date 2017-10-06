@@ -9,8 +9,8 @@ function state_ground_truth = getNextState(map_, state_ground_truth_, control_in
   transition_probability = transitionModel(map_, state_ground_truth_(1), state_ground_truth_(2), control_input_);
 
   #available motion range
-  min_row = state_ground_truth_(1)-1; #MOVE_DOWN
-  max_row = state_ground_truth_(1)+1; #MOVE_UP
+  min_row = state_ground_truth_(1)-1; #MOVE_UP
+  max_row = state_ground_truth_(1)+1; #MOVE_DOWN
   min_col = state_ground_truth_(2)-1; #MOVE_LEFT
   max_col = state_ground_truth_(2)+1; #MOVE_RIGHT
 

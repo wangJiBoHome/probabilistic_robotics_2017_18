@@ -27,9 +27,9 @@ function transition_probability_matrix = transitionModel(map_, row_from_, col_fr
       target_col = col_from_;
       switch (control_input_)
 	      case MOVE_UP
-		      target_row++;
-	      case MOVE_DOWN
 		      target_row--;
+	      case MOVE_DOWN
+		      target_row++;
 	      case MOVE_LEFT 
 		      target_col--;
 	      case MOVE_RIGHT 
@@ -59,14 +59,14 @@ function transition_probability_matrix = transitionModel(map_, row_from_, col_fr
       #our motion is feasible - compute resulting transition
       switch (control_input_)
         case MOVE_UP 
-          if (translation_rows     ==  1 && translation_cols ==  0) transition_probability_matrix(row_to, col_to) = 0.8;
-          elseif (translation_rows ==  1 && translation_cols ==  1) transition_probability_matrix(row_to, col_to) = 0.1;
-          elseif (translation_rows ==  1 && translation_cols == -1) transition_probability_matrix(row_to, col_to) = 0.1;
-          endif;
-        case MOVE_DOWN 
           if (translation_rows     == -1 && translation_cols ==  0) transition_probability_matrix(row_to, col_to) = 0.8;
           elseif (translation_rows == -1 && translation_cols ==  1) transition_probability_matrix(row_to, col_to) = 0.1;
           elseif (translation_rows == -1 && translation_cols == -1) transition_probability_matrix(row_to, col_to) = 0.1;
+          endif;
+        case MOVE_DOWN 
+          if (translation_rows     ==  1 && translation_cols ==  0) transition_probability_matrix(row_to, col_to) = 0.8;
+          elseif (translation_rows ==  1 && translation_cols ==  1) transition_probability_matrix(row_to, col_to) = 0.1;
+          elseif (translation_rows ==  1 && translation_cols == -1) transition_probability_matrix(row_to, col_to) = 0.1;
 		      endif;	
         case MOVE_LEFT
           if (translation_rows     ==  0 && translation_cols == -1) transition_probability_matrix(row_to, col_to) = 0.8;

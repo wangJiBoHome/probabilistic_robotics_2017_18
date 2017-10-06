@@ -13,7 +13,7 @@ endif
 global map = getMap(argv(){1});
 
 #initialize actual robot position x,y (not a state visible to the robot)
-global state_ground_truth = [2,2];
+global state_ground_truth = [rows(map)-1, 2];
 
 #initialize robot states: position belief values over the complete grid
 number_of_free_cells = rows(map)*columns(map);
@@ -62,8 +62,8 @@ function keyPressed (src_, event_)
   
   #erase previous robot position and observations
   subplot(subfigure_ground_truth);
-  rectangle("Position", [state_ground_truth(2)-1 state_ground_truth(1)-1 1 1], "FaceColor", "white");
-  clearObservations(observations, state_ground_truth, map);
+  drawRectangle(map, state_ground_truth(1), state_ground_truth(2), "white");
+  clearObservations(observations, state_ground_truth(1), state_ground_truth(2), map);
   
 #---------------------------------- FILTERING ----------------------------------
 
@@ -71,7 +71,7 @@ function keyPressed (src_, event_)
   state_ground_truth = getNextState(map, state_ground_truth, control_input);
   
   #obtain current observations according to our observation model
-  observations = getObservations(map, state_ground_truth);
+  observations = getObservations(map, state_ground_truth(1), state_ground_truth(2));
 
   #PREDICT robot position belief
   state_belief_previous = state_belief;
@@ -99,8 +99,8 @@ function keyPressed (src_, event_)
 
   #draw new robot position and its observations on the map
   subplot(subfigure_ground_truth);
-  rectangle("Position", [state_ground_truth(2)-1 state_ground_truth(1)-1 1 1], "FaceColor", "red");
-  drawObservations(observations, state_ground_truth);
+  drawRectangle(map, state_ground_truth(1), state_ground_truth(2), "red");
+  drawObservations(map, observations, state_ground_truth(1), state_ground_truth(2));
 
   #draw belief
   subplot(subfigure_belief);
@@ -115,7 +115,7 @@ endfunction
 #function that is executed once the GUI window is closed
 function closedGUI (src_, data_)
   printf("GUI closed, terminating\n");
-  global is_gui_active
+  global is_gui_active;
   is_gui_active = false;
 endfunction
 
@@ -142,9 +142,7 @@ set(title("robot position | ground truth"), "fontsize", font_size);
 drawMap(map);
 
 #draw initial robot position
-hold on;
-rectangle("Position", [state_ground_truth(2)-1 state_ground_truth(1)-1 1 1], "FaceColor", "red");
-hold off;
+drawRectangle(map, state_ground_truth(1), state_ground_truth(2), "red");
 printf("map loaded!\n");
 printf("Move orazio with [W, A, S, D]\n");
 

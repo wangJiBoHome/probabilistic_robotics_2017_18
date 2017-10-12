@@ -46,7 +46,9 @@ If you want to run the `Octave` examples on a Windows machine make sure to copy 
 [utilities](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/tools/utilities)
 
 ### Applications
+
  - [grid-orazio](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/04_grid_orazio) (Octave)
+ - [ekf_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/01_ekf_localization) (Octave)
 
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>

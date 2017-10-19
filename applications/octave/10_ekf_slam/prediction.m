@@ -17,7 +17,7 @@
 # outputs 
 # [mu, sigma] are mean and covariance of the estimate after transition
 
-function [mu, sigma] = prediction(mu, sigma, control_input)
+function [mu, sigma] = prediction(mu, sigma, transition)
 
   #domain spaces
   dimension_mu = size(mu, 1);
@@ -27,14 +27,7 @@ function [mu, sigma] = prediction(mu, sigma, control_input)
   mu_r = mu(1:3);
 
   #get the control input u = [ux, uy, utheta]
-  u = control_input.v;
-
-  #predict the robot motion, this is our f(x,u) function in the slides
-  #the transition model only affects the robot pose not the landmarks
-  mu_r = transition_model(mu_r, u);
-
-  #update the complete state
-  mu(1:3) = mu_r;
+  u = transition.v;
 
   #readability: current pose
   mu_x     = mu_r(1);
@@ -69,6 +62,10 @@ function [mu, sigma] = prediction(mu, sigma, control_input)
   #compose control noise covariance sigma_u
   sigma_u = [#TODO: set the complete noise covariance for the control input u
             ];
+
+  #predict the robot motion, this is our f(x,u) function in the slides
+  #the transition model only affects the robot pose not the landmarks
+  mu(1:3) = transition_model(mu_r, u);
 
   #predict sigma
   sigma = #TODO: predict the complete covariance

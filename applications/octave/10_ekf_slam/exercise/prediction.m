@@ -45,19 +45,21 @@ function [mu, sigma] = prediction(mu, sigma, control_input)
   u_x     = u(1); #translational velocity
   u_theta = u(3); #rotational velocity
 
-  #Jacobian A
+  #Jacobian A: States
   #initialize A as an identity and fill only the robot block
-  A = eye(dimension_mu, dimension_mu);
-  A(1:3,1:3) = [1, 0, -u_x*sin(mu_theta);
-                0, 1, u_x*cos(mu_theta);
-                0, 0, 1];
+  A = eye(#TODO: put the correct dimensions
+  A(#TODO: which part of A do we have to change?
+  =
+  [#TODO: what value (matrix) do we have to put?
+  ];
 
-  #Jacobian B
+  #Jacobian B: Controls
   #for each state variable we have to associate the available control inputs
-  B = zeros(dimension_mu, dimension_u);
-  B(1:3,:) = [cos(mu_theta), 0;
-              sin(mu_theta), 0;
-              0, 1];
+  B = zeros(#TODO: put the correct dimensions
+  B(#TODO: which part of B do we have to change?
+  =
+  [#TODO: what value (matrix) do we have to put?
+  ];
 
   #control noise u
   sigma_v   = 0.1;     #constant part
@@ -65,9 +67,10 @@ function [mu, sigma] = prediction(mu, sigma, control_input)
   sigma_u_2 = u_theta; #rotational velocity dependent part
 
   #compose control noise covariance sigma_u
-  sigma_u = [sigma_v^2+sigma_u_1^2, 0;
-             0, sigma_v^2+sigma_u_2^2];
+  sigma_u = [#TODO: set the complete noise covariance for the control input u
+            ];
 
   #predict sigma
-  sigma = A*sigma*A' + B*sigma_u*B';
+  sigma = #TODO: predict the complete covariance
 end
+

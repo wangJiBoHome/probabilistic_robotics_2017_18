@@ -20,14 +20,11 @@ printf("initial pose: [%f, %f, %f]\n", mu(1), mu(2), mu(3));
 #initialize covariance: high value means high uncertainty
 sigma = eye(3);
 
-#data association: to and from mapping between EKF state and landmark identifiers
-#all mappings are initialized with invalid value -1 (meaning that the index is not mapped yet)
+#bookkeeping: to and from mapping between robot pose (x,y, theta) and landmark indices (i)
+#all mappings are initialized with invalid value -1 (meaning that the index is not mapped)
 #since we do not know how many landmarks we will observe, we allocate a large enough buffer
-state_to_id_map = ones(10000, 1)*-1; #this is j(m)
-
-#in order to retrieve a landmarks position in our state as we observe it,
-#we need to establish a mapping from landmark identifiers to the state
-id_to_state_map = ones(10000, 1)*-1; #this is j^-1(m)
+id_to_state_map = ones(10000, 1)*-1;
+state_to_id_map = ones(10000, 1)*-1;
 
 #initialize GUI with initial situation
 figure("name", "ekf_slam",    #figure title
@@ -44,11 +41,14 @@ for t = 1:length(transitions)
   #obtain current observation
   observation = observations(t);
 
-  #EKF predict TODO
-  #[mu, sigma] = prediction(mu, sigma, transition);
+  #EKF predict
+  [mu, sigma] = prediction(mu, sigma, transition);
 
-  #EKF correct TODO
-  #[mu, sigma, id_to_state_map, state_to_id_map] = correction(mu, sigma, observation, id_to_state_map, state_to_id_map);
+  #EKF correct
+  [mu, sigma, id_to_state_map, state_to_id_map] = correction(mu, 
+                                                             sigma, observation, 
+                                                             id_to_state_map, 
+                                                             state_to_id_map);
 
   #display current state and wait briefly
   printf("current pose: [%f, %f, %f]\n", mu(1), mu(2), mu(3));

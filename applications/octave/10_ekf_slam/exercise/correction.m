@@ -83,23 +83,25 @@ function [mu, sigma, id_to_state_map, state_to_id_map] = correction(mu, sigma, o
       z_t(end+1,:) = measurement.y_pose;
 
       #fetch the position of the landmark in the state (its x and y coordinate)
-      landmark_mu=mu(landmark_state_vector_index:landmark_state_vector_index+1,:);
+      landmark_mu = mu(landmark_state_vector_index:landmark_state_vector_index+1,:);
       
-      #where I predict i will see that landmark
-      delta_t            = landmark_mu-mu_t;
-      measure_prediction = Rt* delta_t;
+      #compute the measurement
+      delta_t            = #TODO: distance between the robot and the landmark (in world coordinates)
+      measure_prediction = #TODO: relative distance to the landmark, seen from the robot
 
       #add prediction to prediction vector
       h_t(end+1,:) = measure_prediction(1);
       h_t(end+1,:) = measure_prediction(2);
 
-      #jacobian w.r.t robot
-      C_m=zeros(2,state_dim);
-      C_m(1:2,1:2) = -Rt;
-      C_m(1:2,3)   = Rtp*delta_t;
+      #compute jacobian w.r.t robot
+      C_m          = zeros(#TODO: put the correct dimensions
+      C_m(1:2,1:2) = #TODO: translational part of the jacobian
+      C_m(1:2,3)   = #TODO: rotational part of the jacobian
 
       #jacobian w.r.t landmark
-      C_m(:,landmark_state_vector_index:landmark_state_vector_index+1)=Rt;
+      C_m(:,landmark_state_vector_index:landmark_state_vector_index+1)= #TODO: jacobian for the landmark
+      
+      #accumulate measurement
       C_t(end+1,:) = C_m(1,:);
       C_t(end+1,:) = C_m(2,:);
     endif
@@ -110,19 +112,19 @@ function [mu, sigma, id_to_state_map, state_to_id_map] = correction(mu, sigma, o
   if ((num_old_landmarks_measured > 0))
 
     #observation noise
-    noise   = 0.01;
-    sigma_z = eye(2*num_old_landmarks_measured)*noise;
+    sigma_w = 0.01; #assume constant noise
+    sigma_z = sigma_w*eye(#TODO: set the correct dimension of the matrix
 
     #Kalman gain
-    K = sigma * C_t'*(inv(C_t*sigma*C_t' + sigma_z));
+    K = #TODO: compute the Kalman Gain matrix;
 
-    #update mu
-    error      = (z_t - h_t);
-    correction = K*error;
+    #state correction
+    innovation = #TODO: compute the innovation value as the difference between the measurement z_t and the prediction of the measurement h_t
+    correction = K*innovation;
     mu         = mu + correction;
 
-    #update sigma
-    sigma = (eye(state_dim) - K*C_t)*sigma;		
+    #covariance correction
+    sigma = #TODO: compute the covariance correction
   endif
 
   #since I have applied the correction, I need to update my
@@ -155,7 +157,7 @@ function [mu, sigma, id_to_state_map, state_to_id_map] = correction(mu, sigma, o
       state_to_id_map(num_landmarks)=measurement.id;
       
       #landmark position in the world
-      land_pose_world = mu_t + R*[measurement.x_pose;measurement.y_pose];
+      land_pose_world = #TODO: compute the landmark position in the world (using the current robot position: mu_t, R)
 
       #retrieve from the index the position of the landmark block in the state
       new_landmark_state_vector_index=4+2*(num_landmarks-1);

@@ -51,6 +51,7 @@ If you want to run the `Octave` examples on a Windows machine make sure to copy 
  - [ekf_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/01_ekf_localization) (Octave)
  - [ekf_localization_bearing_only](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/02_ekf_localization_bearing_only) (Octave)
  - [ekf_slam](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/10_ekf_slam) (Octave)
+ - [ukf_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/14_ukf_localization) (Octave)
 
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>

@@ -45,6 +45,14 @@ If you want to run the `Octave` examples on a Windows machine make sure to copy 
 [visualization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/tools/visualization) and
 [utilities](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/tools/utilities)
 
+### Optional Requirements
+Install ROS by following the instructions for <br/>
+
+  - [Ubuntu 16.04](http://wiki.ros.org/kinetic/Installation/Ubuntu) 
+  - [Ubuntu 14.04](http://wiki.ros.org/indigo/Installation/Ubuntu)
+
+In both cases, install `ros-<VERSION>-desktop-full`
+
 ### Applications
 
  - [grid-orazio](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/04_grid_orazio) (Octave)
@@ -52,6 +60,7 @@ If you want to run the `Octave` examples on a Windows machine make sure to copy 
  - [ekf_localization_bearing_only](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/02_ekf_localization_bearing_only) (Octave)
  - [ekf_slam](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/10_ekf_slam) (Octave)
  - [ukf_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/14_ukf_localization) (Octave)
+ - [particle_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/16_particle_localization) (Octave)
 
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>

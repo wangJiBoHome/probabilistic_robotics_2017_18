@@ -2,6 +2,10 @@
 
 Particle Filter based localizer
 
+## Prerequisites
+
+This package needs [ROS kinetic (Ubuntu 16.04)](http://wiki.ros.org/kinetic/Installation/Ubuntu) or [ROS indigo (Ubuntu 14.04)](http://wiki.ros.org/indigo/Installation/Ubuntu)
+
 ## Compilation
 
 compile it with catkin.

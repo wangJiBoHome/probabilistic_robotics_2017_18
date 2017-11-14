@@ -11,7 +11,7 @@ This package needs [ROS kinetic (Ubuntu 16.04)](http://wiki.ros.org/kinetic/Inst
 compile it with catkin.
 
 	cd <catkin_workspace>/src
-	ln -s 16_thin_localizer .
+	ln -s <path-to-prob-rob-16-17>/applications/cpp/16_thin_localizer .
 	cd ..
 	catkin_make
 

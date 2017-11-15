@@ -62,7 +62,9 @@ In both cases, install `ros-<VERSION>-desktop-full`
  - [ukf_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/14_ukf_localization) (Octave)
  - [particle_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/16_particle_localization) (Octave)
  - [thin_particle_localization](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/cpp/16_thin_localizer) (C++ / ROS)
+ - [distance_map](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/cpp/17a_distance_map) (C++)
  - [autodiff](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/cpp/17b_autodiff) (C++)
+ - [KD-Tree](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/cpp/17c_kd_tree) (C++)
  
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>

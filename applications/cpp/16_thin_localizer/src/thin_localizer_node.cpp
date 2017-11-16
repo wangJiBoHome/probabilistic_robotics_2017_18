@@ -142,9 +142,18 @@ int main(int argc, char **argv){
   localizer.startGlobal();
   std::cerr << "Starting node. " << std::endl; 
   ros::init(argc, argv, "thin_localizer_node");
-  ros::NodeHandle n;
+  ros::NodeHandle n, private_nh("~");
+
+  private_nh.param<std::string>("laser_topic", laser_topic, "/scan");
+  private_nh.param<std::string>("base_frame", base_frame, "/base_frame");
+  private_nh.param<std::string>("odom_frame", odom_frame, "/odom");
+  std::cerr << "Using params: " << std::endl;
+  std::cerr << "laser topic:    " << laser_topic << std::endl;
+  std::cerr << "base frame:     " << base_frame << std::endl;
+  std::cerr << "odom frame:     " << odom_frame << std::endl;
+  
   listener = new tf::TransformListener;
-  ros::Subscriber sub = n.subscribe(laser_topic, 100, laserCallback);
+  ros::Subscriber sub = n.subscribe(laser_topic, 100, laserCallback);  
   ros::spin();
 
   return 0;

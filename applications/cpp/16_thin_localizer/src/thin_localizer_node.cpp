@@ -148,9 +148,9 @@ int main(int argc, char **argv){
   private_nh.param<std::string>("base_frame", base_frame, "/base_frame");
   private_nh.param<std::string>("odom_frame", odom_frame, "/odom");
   std::cerr << "Using params: " << std::endl;
-  std::cerr << "laser topic:    " << laser_topic << std::endl;
-  std::cerr << "base frame:     " << base_frame << std::endl;
-  std::cerr << "odom frame:     " << odom_frame << std::endl;
+  std::cerr << "_laser_topic:=    " << laser_topic << std::endl;
+  std::cerr << "_base_frame:=     " << base_frame << std::endl;
+  std::cerr << "_odom_frame:=     " << odom_frame << std::endl;
   
   listener = new tf::TransformListener;
   ros::Subscriber sub = n.subscribe(laser_topic, 100, laserCallback);  

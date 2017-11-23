@@ -67,6 +67,7 @@ In both cases, install `ros-<VERSION>-desktop-full`
  - [KD-Tree](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/cpp/17c_kd_tree) (C++)
  - [ls_odometry_calibration](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/19_odometry_calibration) (Octave)
  - [2d_point_alignment](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/19b_alignment_point_to_point_2d) (Octave)
+ - [3d_point_alignment](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/20_alignment_point_to_point_3d) (Octave)
  
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>

@@ -16,5 +16,5 @@ launch the program by choosing number of point, target transform and least squar
      iterations = 10;
      [chi_ev, x_ev]=testICP2D(num_points, target_transform, iterations)
 
-You will see the __chi_ev__ evolution (constantly decreasing), and the
-solution found __x_ev__ that matches your target tranform
+You will see the __chi_ev__ evolution constantly decreasing and the
+ __x_ev__ solution that matches your target transform.

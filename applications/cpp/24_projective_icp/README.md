@@ -25,7 +25,7 @@ From the system console, execute the build sequence:
     make -j8
     
 ### Execution
-The project provides the following 5 binaries in the executables folder:
+The project provides the following 5 binaries in the `build/executables` folder:
 - `./camera_test`: Testing of the pinhole camera projection function
 - `./distance_map_test`: Testing of the 2d distance map computation (assuming projected points)
 - `./correspondence_finder_test`: Unittest for the correspondence finding algorithm that uses the projection and the distance map functionality)

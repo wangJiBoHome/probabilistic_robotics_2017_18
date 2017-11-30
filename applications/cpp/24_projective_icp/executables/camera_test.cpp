@@ -1,14 +1,14 @@
-#include "defs.h"
 #include "camera.h"
 #include "utils.h"
 #include "points_utils.h"
+
 using namespace std;
 using namespace pr;
 
 const char* banner[]={
   "camera_test",
   " demonstrates a simple pinhole camera model on a virtual world",
-  " move the observer with [i,j,k,l]",
+  " move the observer with [W,A,S,D]",
   " ESC to quit",
   0
 };
@@ -41,7 +41,6 @@ int main (int argc, char** argv) {
   int cols=640;
   Camera cam(rows, cols, camera_matrix);
   
-  cv::namedWindow("camera_test");
   char key=0;
   const char ESC_key=27;
   while (key!=ESC_key) {
@@ -60,14 +59,14 @@ int main (int argc, char** argv) {
     float dt=0.1;
     key=cv::waitKey(0);
     switch(key) {
-    case 'i': motion.translation()=Eigen::Vector3f(0,0,-dt); break;
-    case 'k': motion.translation()=Eigen::Vector3f(0,0,dt); break;
-    case 'j': motion.linear()=Ry(dr); break;
-    case 'l': motion.linear()=Ry(-dr); break;
+    case 'w': motion.translation()=Eigen::Vector3f(0,0,-dt); break;
+    case 's': motion.translation()=Eigen::Vector3f(0,0,dt); break;
+    case 'a': motion.linear()=Ry(dr); break;
+    case 'd': motion.linear()=Ry(-dr); break;
     default: ;
     }
     cam.setWorldToCameraPose(motion*current_pose);
     cerr << "projection took: " << (t_end_projection-t_start_projection) << " ms" << endl;
   }
-  
+  return 0;
 }

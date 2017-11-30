@@ -1,5 +1,3 @@
-#include "defs.h"
-#include "distance_map.h"
 #include "camera.h"
 #include "utils.h"
 #include "points_utils.h"
@@ -9,15 +7,14 @@
 using namespace std;
 using namespace pr;
 
-
 const char* banner[]={
   "correspondence_finder_test",
   " demonstrates a simple distance_map based correspondence finder",
-  " move the observer with [i,j,k,l]",
+  " move the observer with [W,A,S,D]",
+  " increase or decrease the current maximum distance with [+,-]",
   " ESC to quit",
   0
 };
-
 
 int main (int argc, char** argv) {
   printBanner(banner);
@@ -66,10 +63,8 @@ int main (int argc, char** argv) {
   double t_end_corr_init=getTime();
   cerr << "corr_init took: " << (t_end_corr_init-t_start_corr_init) << " ms" << endl;
  
-  cv::namedWindow("correspondence_finder_test");
   char key=0;
-  const char ESC_key=27;
-  while (key!=ESC_key) {
+  while (key != OPENCV_KEY_ESCAPE) {
 
     RGBImage shown_image;
     drawDistanceMap(shown_image, 
@@ -93,23 +88,51 @@ int main (int argc, char** argv) {
 			current_image_points,
 			correspondence_finder.correspondences());
 
+    //ds show image
     cv::imshow("correspondence_finder_test", shown_image);
     Eigen::Isometry3f current_pose=cam.worldToCameraPose();
     Eigen::Isometry3f motion=Eigen::Isometry3f::Identity();
     float dr=0.05;
     float dt=0.1;
+
+    //ds user input
     key=cv::waitKey(0);
-    switch(key) {
-    case 'i': motion.translation()=Eigen::Vector3f(0,0,-dt); break;
-    case 'k': motion.translation()=Eigen::Vector3f(0,0,dt); break;
-    case 'j': motion.linear()=Ry(dr); break;
-    case 'l': motion.linear()=Ry(-dr); break;
-    default: ;
+    switch (key) {
+      case 'w': {
+        motion.translation()=Eigen::Vector3f(0,0,-dt);
+        break;
+      }
+      case 's': {
+        motion.translation()=Eigen::Vector3f(0,0,dt);
+        break;
+      }
+      case 'a': {
+        motion.linear()=Ry(dr);
+        break;
+      }
+      case 'd': {
+        motion.linear()=Ry(-dr);
+        break;
+      }
+      case '+': {
+        ++max_distance;
+        correspondence_finder.init(reference_image_points, rows, cols, max_distance);
+        break;
+      }
+      case '-': {
+        if (max_distance > 0) {
+          --max_distance;
+          correspondence_finder.init(reference_image_points, rows, cols, max_distance);
+        }
+        break;
+      }
+      default: {
+        break;
+      }
     }
     cam.setWorldToCameraPose(motion*current_pose);
-    cerr << "projction took: " << (t_end_projection-t_start_projection) << " ms" << endl;
+    cerr << "projection took: " << (t_end_projection-t_start_projection) << " ms" << endl;
     cerr << "search took: " << (t_end_corr_find-t_start_corr_find) << " ms" << endl;
-
   }
-
+  return 0;
 }

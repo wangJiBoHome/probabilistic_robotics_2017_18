@@ -1,10 +1,8 @@
-#include "../src/picp_solver.h"
-
 #include <assert.h>
-#include "defs.h"
 #include "camera.h"
 #include "utils.h"
 #include "points_utils.h"
+#include "picp_solver.h"
 
 using namespace std;
 using namespace pr;
@@ -12,8 +10,8 @@ using namespace pr;
 
 const char* banner[]={
   "p3p_solver_finder_test",
-  " demonstrates a simple p3p least squares solver",
-  " move the observer with [i,j,k,l]",
+  " demonstrates a simple projective icp least squares solver",
+  " move the observer with [W,A,S,D]",
   " spacebar to trigger one optimization round",
   " ESC to quit",
   0
@@ -70,16 +68,13 @@ int main (int argc, char** argv) {
   // the bottom line projects all points of the image in the current frame
   cam.projectPoints(reference_image_points, world_points, true); 
   
-  cv::namedWindow("p3p_solver_test");
-  
   char key=0;
-  const char ESC_key=27;
 
   // construct a solver
-  P3PSolver solver;
+  PICPSolver solver;
   solver.setKernelThreshold(10000);
 
-  while (key!=ESC_key) {
+  while (key!=OPENCV_KEY_ESCAPE) {
     // project the points on the image plane
     RGBImage shown_image(rows,cols);
     shown_image=cv::Vec3b(255,255,255);
@@ -101,7 +96,7 @@ int main (int argc, char** argv) {
 		       correspondences,
 		       cv::Scalar(0,255,0));
 
-    cv::imshow("p3p_solver_test", shown_image);
+    cv::imshow("picp_solver_test", shown_image);
     Eigen::Isometry3f motion=Eigen::Isometry3f::Identity();
     float dr=0.05;
     float dt=0.1;
@@ -109,10 +104,10 @@ int main (int argc, char** argv) {
     double t_start_solve=0;
     double t_end_solve=0;
     switch(key) {
-    case 'i': motion.translation()=Eigen::Vector3f(0,0,-dt); break;
-    case 'k': motion.translation()=Eigen::Vector3f(0,0,dt); break;
-    case 'j': motion.linear()=Ry(dr); break;
-    case 'l': motion.linear()=Ry(-dr); break;
+    case 'w': motion.translation()=Eigen::Vector3f(0,0,-dt); break;
+    case 's': motion.translation()=Eigen::Vector3f(0,0,dt); break;
+    case 'a': motion.linear()=Ry(dr); break;
+    case 'd': motion.linear()=Ry(-dr); break;
     case ' ': {
       motion.setIdentity();
       t_start_solve=getTime();
@@ -120,12 +115,13 @@ int main (int argc, char** argv) {
       solver.oneRound(correspondences,false);
       cam=solver.camera();
       t_end_solve=getTime();
+      break;
     }  
-    default: ;
+    default: break;
     }
     cam.setWorldToCameraPose(motion*cam.worldToCameraPose());
     cerr << "projection took: " << (t_end_projection-t_start_projection) << " ms" << endl;
     cerr << "solve took: " << (t_end_solve-t_start_solve) << " ms" << endl;
   }
-  
+  return 0;
 }

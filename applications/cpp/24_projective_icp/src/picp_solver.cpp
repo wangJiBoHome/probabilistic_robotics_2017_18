@@ -5,7 +5,7 @@
 
 namespace pr {
   
-  P3PSolver::P3PSolver(){
+  PICPSolver::PICPSolver(){
     _world_points=0;
     _reference_image_points=0;
     _damping=1;
@@ -14,7 +14,7 @@ namespace pr {
     _kernel_thereshold=1000; // 33 pixels
   }
 
-  void P3PSolver::init(const Camera& camera_,
+  void PICPSolver::init(const Camera& camera_,
 	    const Vector3fVector& world_points,
 	    const Vector2fVector& reference_image_points){
     _camera=camera_;
@@ -23,7 +23,7 @@ namespace pr {
   }
   
 
-  bool P3PSolver::errorAndJacobian(Eigen::Vector2f& error,
+  bool PICPSolver::errorAndJacobian(Eigen::Vector2f& error,
 				 Matrix2_6f& jacobian,
 				 const Eigen::Vector3f& world_point,
 				 const Eigen::Vector2f& reference_image_point){
@@ -53,7 +53,7 @@ namespace pr {
       return true;
   }
 
-  void P3PSolver::linearize(const IntPairVector& correspondences, bool keep_outliers){
+  void PICPSolver::linearize(const IntPairVector& correspondences, bool keep_outliers){
     _H.setZero();
     _b.setZero();
     _num_inliers=0;
@@ -90,7 +90,7 @@ namespace pr {
     }
   }
 
-  bool P3PSolver::oneRound(const IntPairVector& correspondences, bool keep_outliers){
+  bool PICPSolver::oneRound(const IntPairVector& correspondences, bool keep_outliers){
     using namespace std;
     linearize(correspondences, keep_outliers);
     _H+=Matrix6f::Identity()*_damping;

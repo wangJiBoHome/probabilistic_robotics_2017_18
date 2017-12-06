@@ -1,9 +1,19 @@
-#include "distance_map.h"
 #include "points_utils.h"
+#include "utils.h"
+
 using namespace pr;
 using namespace std;
 
+const char* banner[]={
+  "distance_map_test",
+  " demonstrates a simple distance_map algorithm",
+  " increase or decrease the current maximum distance with [+,-]",
+  " ESC to quit",
+  0
+};
+
 int main(int argc, char** argv){
+  printBanner(banner);
   int rows=480;
   int cols=640;
   int num_points=100;
@@ -27,20 +37,36 @@ int main(int argc, char** argv){
   IntImage indices_image(rows,cols);
   RGBImage shown_image;
 
-  float d_max=100;
-  cv::namedWindow("distance map");
-  
-  int d_curr=0;
+  float distance_maximum = 100;
+  int distance_current   = 0;
+  char key               = 0;
 
   // show progressive construction of distance map
-  while (d_curr<d_max) {
-    distance_map.compute(indices_image, distance_image, points_image, d_curr);
-    drawDistanceMap(shown_image, distance_image, d_curr-1);
-    cv::imshow("distance map", shown_image);
-    cv::waitKey(10);
-    d_curr++;
+  while (key != OPENCV_KEY_ESCAPE) {
+    distance_map.compute(indices_image, distance_image, points_image, distance_current);
+    drawDistanceMap(shown_image, distance_image, distance_current-1);
+    cv::imshow("distance_map_test", shown_image);
+
+    //ds wait for key pressed
+    key = cv::waitKey(0);
+    switch (key) {
+      case '+': {
+        if (distance_current < distance_maximum) {
+          ++distance_current;
+        }
+        break;
+      }
+      case '-': {
+        if (distance_current > 0) {
+          --distance_current;
+        }
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    std::cerr << "current maximum distance: " << distance_current << std::endl;
   }
-
-
-
+  return 0;
 }

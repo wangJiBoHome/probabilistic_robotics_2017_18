@@ -17,12 +17,12 @@ namespace pr {
      - call oneRound(<correspondences>) a bunch of times, with the correspondences returned by the finder;
        at each call, the solution will be subject to one ls operation
    */
-  class P3PSolver{
+  class PICPSolver{
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
 
     //! ctor
-    P3PSolver();
+    PICPSolver();
 
     //! init method, call it at the beginning
     //! @param camera: the camera

@@ -9,6 +9,15 @@
 
 namespace pr {
 
+  //ds opencv keys
+  #define OPENCV_KEY_UP 2490368
+  #define OPENCV_KEY_DOWN 2621440
+  #define OPENCV_KEY_LEFT 2424832
+  #define OPENCV_KEY_RIGHT 2555904
+  #define OPENCV_KEY_SPACE 32
+  #define OPENCV_KEY_DELETE 3014656
+  #define OPENCV_KEY_ESCAPE 27
+
   typedef std::vector<Eigen::Vector4f, Eigen::aligned_allocator<Eigen::Vector4f> > Vector4fVector;
   typedef std::vector<Eigen::Vector3f, Eigen::aligned_allocator<Eigen::Vector3f> > Vector3fVector;
   typedef std::vector<Eigen::Vector2f, Eigen::aligned_allocator<Eigen::Vector2f> > Vector2fVector;

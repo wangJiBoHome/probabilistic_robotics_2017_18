@@ -70,6 +70,7 @@ In both cases, install `ros-<VERSION>-desktop-full`
  - [3d_point_alignment](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/20_alignment_point_to_point_3d) (Octave)
  - [3d_point_alignment with linear_relaxation](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/20b_alignment_point_to_point_3d_linear_relaxation) (Octave)
  - [PICP](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/cpp/24_projective_icp) (C++)
+ - [3d_multi_point_registration](https://gitlab.com/grisetti/probabilistic_robotics_2017_18/tree/master/applications/octave/25_multi_point_registration) (Octave)
 
 ## Robotic news
 [IEEE spectrum](https://spectrum.ieee.org/robotics) <br/>
